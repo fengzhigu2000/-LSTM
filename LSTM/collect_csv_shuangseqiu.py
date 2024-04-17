@@ -3,14 +3,18 @@ from bs4 import BeautifulSoup
 import os
 import time
 path = './ssqshuangseqiu.txt'
-
+path1 = './ssqshuangseqiuyema.txt'
 if os.path.exists(path):
     os.remove(path)
 else:
     print("not file！")
-
-def save_to_file(content):
-    with open(path, 'a', encoding='utf-8') as f:
+    
+if os.path.exists(path1):
+    os.remove(path1)
+else:
+    print("not file1！")
+def save_to_file(content,pathp):
+    with open(pathp, 'a', encoding='utf-8') as f:
         f.write(content + '\n')
 
 
@@ -46,8 +50,7 @@ for i in range(0, resultpage+1):
         time.sleep(10)
     else:
         time.sleep(3)
-
-    print("当前页码:"+i)
+    save_to_file(str(i)+" "+url,path1)
     res = requests.get(url, headers=headers, timeout=10)
     res.encoding = 'utf-8'
     context = res.text
@@ -78,4 +81,6 @@ for i in range(0, resultpage+1):
         spanb = soups1.find_all('span',attrs={"class":"qiu_b"})
         result = shijian +', '+ qi +', '+ spans[0].string +' '+spans[1].string +' '+spans[2].string+' '+spans[3].string+' '+spans[4].string+' '+spans[5].string+' '+spanb[0].string
         print(result)
-        save_to_file(result)
+        save_to_file(result,path)
+        
+        
