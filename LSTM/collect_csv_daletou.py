@@ -2,15 +2,19 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import time
-path = './ssqdaletou.txt'
-
+path = './ssqdaletou2.txt'
+path1 = './ssqdaletou2yema.txt'
 if os.path.exists(path):
     os.remove(path)
 else:
     print("not file！")
+if os.path.exists(path1):
+    os.remove(path1)
+else:
+    print("not file！")
 
-def save_to_file(content):
-    with open(path, 'a', encoding='utf-8') as f:
+def save_to_file(content,pathp):
+    with open(pathp, 'a', encoding='utf-8') as f:
         f.write(content + '\n')
 
 
@@ -50,6 +54,7 @@ for i in range(0, resultpage+1):
     else:
         time.sleep(3)
     res = requests.get(url, headers=headers, timeout=30)
+    save_to_file(str(i)+" "+url,path1)
     res.encoding = 'utf-8'
     context = res.text
     soups = BeautifulSoup(context, 'html.parser')
@@ -80,4 +85,4 @@ for i in range(0, resultpage+1):
         spanb = soups1.find_all('span',attrs={"class":"qiu_b"})
         result = shijian +', '+ qi +', '+ spans[0].string +' '+spans[1].string +' '+spans[2].string+' '+spans[3].string+' '+spans[4].string+' '+spanb[0].string+' '+spanb[1].string
         print(result)
-        save_to_file(result)
+        save_to_file(result,path)
