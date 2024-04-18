@@ -5,12 +5,14 @@ import time
 path = './ssqshuangseqiu.txt'
 path1 = './ssqshuangseqiuyema.txt'
 if os.path.exists(path):
-    os.remove(path)
+    #os.remove(path)
+    print("have file！")
 else:
     print("not file！")
     
 if os.path.exists(path1):
-    os.remove(path1)
+    #os.remove(path1)
+    print("have file！")
 else:
     print("not file1！")
 def save_to_file(content,pathp):
@@ -44,14 +46,15 @@ print(resultpage)
 #接下来，我们就可以根据规律组装好我们的URL：
 url_part = 'https://www.cjcp.cn/kaijiang/ssqmingxi'
 ban = resultpage/2
-for i in range(0, resultpage+1):
+for i in range(127, resultpage+1):
     url = url_part + '_' + str(i) + '.html'
     if(i==ban):
         time.sleep(10)
     else:
         time.sleep(3)
+    
+    res = requests.get(url, headers=headers, timeout=30)
     save_to_file(str(i)+" "+url,path1)
-    res = requests.get(url, headers=headers, timeout=10)
     res.encoding = 'utf-8'
     context = res.text
     soups = BeautifulSoup(context, 'html.parser')
