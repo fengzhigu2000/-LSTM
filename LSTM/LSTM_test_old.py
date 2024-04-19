@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow as tf
 import pandas as pd
 import math
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def LSTMtest(data):
 

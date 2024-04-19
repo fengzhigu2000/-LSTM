@@ -4,8 +4,9 @@ import pandas as pd
 import numpy as np
 import os,sys
 import time
-import tensorflow as tf
 import matplotlib.pyplot as plt
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 status = "蓝"
 

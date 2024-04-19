@@ -5,6 +5,8 @@ import os,sys
 import time
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 path = "./data.csv"
 
@@ -31,8 +33,6 @@ def LSTM_test(normalize_data,statusname):
         y=normalize_data[i+1:i+time_step+1]
         train_x.append(x.tolist())
         train_y.append(y.tolist())
-
-
 
     X=tf.placeholder(tf.float32, [None,time_step,input_size])    #每批次输入网络的tensor
     Y=tf.placeholder(tf.float32, [None,time_step,output_size]) #每批次tensor对应的标签
