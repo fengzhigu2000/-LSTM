@@ -37,7 +37,7 @@ pageinfo = soup.find('b').text
 print(pageinfo)
 # 查找 '/' 的位置
 index = pageinfo.find('/')
-
+save_to_file(",时间,期数,红1,红2,红3,红4,红5,蓝1,蓝2")
 # 获取 '/' 后面的三个字符
 resultpage = int(pageinfo[index + 1 : index + 4])
 print(resultpage)
@@ -83,6 +83,6 @@ for i in range(0, resultpage+1):
         qi = options[0].text
         spans = soups1.find_all('span',attrs={"class":"qiu_r"})
         spanb = soups1.find_all('span',attrs={"class":"qiu_b"})
-        result = shijian +', '+ qi +', '+ spans[0].string +' '+spans[1].string +' '+spans[2].string+' '+spans[3].string+' '+spans[4].string+' '+spanb[0].string+' '+spanb[1].string
+        result = shijian +','+ qi +','+ spans[0].string +','+spans[1].string +','+spans[2].string+','+spans[3].string+','+spans[4].string+','+spanb[0].string+','+spanb[1].string
         print(result)
         save_to_file(result,path)

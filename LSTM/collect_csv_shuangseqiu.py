@@ -43,6 +43,7 @@ index = pageinfo.find('/')
 # 获取 '/' 后面的三个字符
 resultpage = int(pageinfo[index + 1 : index + 4])
 print(resultpage)
+save_to_file(",时间,期数,红1,红2,红3,红4,红5,红6,蓝")
 #接下来，我们就可以根据规律组装好我们的URL：
 url_part = 'https://www.cjcp.cn/kaijiang/ssqmingxi'
 ban = resultpage/2
@@ -82,7 +83,7 @@ for i in range(127, resultpage+1):
         qi = options[0].text
         spans = soups1.find_all('span',attrs={"class":"qiu_r"})
         spanb = soups1.find_all('span',attrs={"class":"qiu_b"})
-        result = shijian +', '+ qi +', '+ spans[0].string +' '+spans[1].string +' '+spans[2].string+' '+spans[3].string+' '+spans[4].string+' '+spans[5].string+' '+spanb[0].string
+        result = shijian +','+ qi +','+ spans[0].string +','+spans[1].string +','+spans[2].string+','+spans[3].string+','+spans[4].string+','+spans[5].string+','+spanb[0].string
         print(result)
         save_to_file(result,path)
         
