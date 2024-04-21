@@ -3,12 +3,19 @@ import pandas as pd
 import numpy as np
 import os,sys
 import time
-import tensorflow as tf
+#import tensorflow as tf
 import matplotlib.pyplot as plt
-import tensorflow.compat.v1 as tf
+# 公司电脑
+#import tensorflow.compat.v1 as tf
+#tf.disable_v2_behavior()
+# 家里电脑
+import tensorflow._api.v2.compat.v1 as tf
 tf.disable_v2_behavior()
 
-path = "./data.csv"
+
+#path = "./data.csv"
+
+path = "./ssqshuangseqiu.csv"
 
 # time_step = 24  # 时间步
 # rnn_unit = 10  # hidden layer units
@@ -174,6 +181,5 @@ if __name__=="__main__":
         data_new.append(data)
     data_pre.append((data_new))
     datas = pd.DataFrame(data_pre,columns=["红1","红2","红3","红4","红5","红6","蓝"])
-    datas.to_csv("./data_pre.csv",index=False)
-
+    datas.to_csv("./data_pre_shuangseqiu.csv",index=False)
 
