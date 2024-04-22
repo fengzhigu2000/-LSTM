@@ -16,7 +16,8 @@ tf.disable_v2_behavior()
 #path = "./data.csv"
 
 path = "./ssqshuangseqiu.csv"
-
+scopes = 'train_'
+scopescopy = 'train_'
 # time_step = 24  # 时间步
 # rnn_unit = 10  # hidden layer units
 # batch_size = 60  # 每一批次训练多少个样例
@@ -111,8 +112,8 @@ def LSTM_test(normalize_data,statusname):
             print("预测结果(归一化)：",data)
         return data
 
-
-    with tf.variable_scope('train'):
+    
+    with tf.variable_scope(scopes):
         data = prediction()
     tf.reset_default_graph()
     return data
@@ -124,24 +125,33 @@ def LSTM_test(normalize_data,statusname):
 
 
 def pre_last(status ="测试"):
+    global scopes
+    global scopescopy
     print(status)
     if status == "测试":
         print("请重新输入参数：（具体是哪个球？）")
         os._exit(0)
     elif status =="红1":
         statusname = "red1"
+        scopes = scopescopy + '0'
     elif status == "红2":
         statusname = "red2"
+        scopes = scopescopy + '1'
     elif status == "红3":
         statusname = "red3"
+        scopes = scopescopy + '2'
     elif status == "红4":
         statusname = "red4"
+        scopes = scopescopy + '3'
     elif status == "红5":
         statusname = "red5"
+        scopes = scopescopy + '4'
     elif status == "红6":
         statusname = "red6"
+        scopes = scopescopy + '5'
     elif status == "蓝":
         statusname = "blue"
+        scopes = scopescopy + '6'
     else:
         print("请重新输入参数：（具体是哪个球？）")
         os._exit(0)
