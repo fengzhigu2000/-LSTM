@@ -15,9 +15,9 @@ tf.disable_v2_behavior()
 qius = ["红1","红2","红3","红4","红5","蓝1","蓝2"]
 
 
-for status in qius:
+#status = "红1"
+for index,status in  enumerate(qius):
      print(status)
-     
      #####################################################上面调整参数
      if status =="红1":
          statusname = "red1"
@@ -50,8 +50,8 @@ for status in qius:
      
      data_normal = []
      data_normal.append((data_std,data_mean))
-     if not os.path.exists("./model_step_dl%s/"%(statusname)):
-         os.mkdir("./model_step_dl%s/"%(statusname))
+     if not os.path.exists("./model_step_dl_%s/"%(statusname)):
+         os.mkdir("./model_step_dl_%s/"%(statusname))
      datas = pd.DataFrame(data_normal,columns=['data_std','data_mean'])
      datas.to_csv("./model_step/std_mean_%s.csv"%(statusname))
      #———————————————————形成训练集—————————————————————
@@ -123,7 +123,7 @@ for status in qius:
                      #每10步保存一次参数
                      if step%10==0:
                          print(i,step,loss_)
-                         print("保存模型：",saver.save(sess,'./model_step_dl%s/stock.ckpt'%statusname))
+                         print("保存模型：",saver.save(sess,'./model_step_dl_%s/stock.ckpt'%statusname))
                      step+=1
      
      
@@ -132,7 +132,7 @@ for status in qius:
          saver=tf.train.Saver(tf.global_variables())
          with tf.Session() as sess:
              #参数恢复
-             module_file = tf.train.latest_checkpoint('./model_step_dl%s/'%statusname)
+             module_file = tf.train.latest_checkpoint('./model_step_dl_%s/'%statusname)
              saver.restore(sess, module_file)
              #取训练集最后一行为测试样本。shape=[1,time_step,input_size]
              prev_seq=train_x[-1]
@@ -148,12 +148,16 @@ for status in qius:
              plt.figure()
              plt.plot(list(range(len(normalize_data))), normalize_data, color='b')
              plt.plot(list(range(len(normalize_data), len(normalize_data) + len(predict))), predict, color='r')
+             time.sleep(1)
+             file_path = './fig/dl_%s.png'%statusname
+             os.makedirs(os.path.dirname(file_path), exist_ok=True)
+             plt.savefig(file_path)
              plt.show()
-             plt.savefig()
+             plt.close()
      
      
      
-     with tf.variable_scope('train'):
+     with tf.variable_scope('train_'+str(index)):
          train_lstm()
-     with tf.variable_scope('train',reuse=True):
+     with tf.variable_scope('train_'+str(index),reuse=True):
          prediction()
