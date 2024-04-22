@@ -53,7 +53,7 @@ for index,status in  enumerate(qius):
      if not os.path.exists("./model_step_dl_%s/"%(statusname)):
          os.mkdir("./model_step_dl_%s/"%(statusname))
      datas = pd.DataFrame(data_normal,columns=['data_std','data_mean'])
-     datas.to_csv("./model_step/std_mean_%s.csv"%(statusname))
+     datas.to_csv("./model_step_dl/std_mean_%s.csv"%(statusname))
      #———————————————————形成训练集—————————————————————
      #设置常量
      time_step=24      #时间步
@@ -152,8 +152,8 @@ for index,status in  enumerate(qius):
              file_path = './fig/dl_%s.png'%statusname
              os.makedirs(os.path.dirname(file_path), exist_ok=True)
              plt.savefig(file_path)
-             plt.show()
-             plt.close()
+             #plt.show()
+             #plt.close()
      
      
      

@@ -93,7 +93,7 @@ def LSTM_test(normalize_data,statusname):
                     #每10步保存一次参数
                     if step%10==0:
                         print(i,step,loss_)
-                        print("保存模型：",saver.save(sess,'./model_step_%s/stock.ckpt'%statusname))
+                        print("保存模型：",saver.save(sess,'./model_step_dl_%s/stock.ckpt'%statusname))
                     step+=1
 
 
@@ -102,7 +102,7 @@ def LSTM_test(normalize_data,statusname):
         saver=tf.train.Saver(tf.global_variables())
         with tf.Session() as sess:
             #参数恢复
-            module_file = tf.train.latest_checkpoint('./model_step_%s/'%statusname)
+            module_file = tf.train.latest_checkpoint('./model_step_dl_%s/'%statusname)
             saver.restore(sess, module_file)
             #取训练集最后一行为测试样本。shape=[1,time_step,input_size]
             prev_seq=train_x[-1]
@@ -150,7 +150,7 @@ def pre_last(status ="测试"):
 
 
     dt_last = dt[-24:]
-    mean_std = pd.read_csv("./model_step/std_mean_%s.csv"%(statusname))
+    mean_std = pd.read_csv("./model_step_dl/std_mean_%s.csv"%(statusname))
     dt_std = np.array(mean_std["data_std"])
     dt_mean = np.array(mean_std["data_mean"])
     normalize_data = (dt - dt_mean)/dt_std
